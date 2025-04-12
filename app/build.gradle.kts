@@ -72,6 +72,8 @@ publishing {
                 password = System.getenv("GITHUB_TOKEN") ?: ""    // GitHub token
             }
         }
+        google()
+        mavenCentral()
     }
 }
 
