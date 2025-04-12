@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 35
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -57,14 +56,26 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.example.chatlibmio"
             artifactId = "chatlibmio"
-            version = "1.0.0"
+            version = "1.1.0"
 
             afterEvaluate {
                 from(components["release"])
             }
         }
     }
+
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/ioiiiomio/chatlibmio")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME") ?: ""  // GitHub username
+                password = System.getenv("GITHUB_TOKEN") ?: ""    // GitHub token
+            }
+        }
+    }
 }
+
+
 
 dependencies {
     implementation(libs.androidx.core.ktx)

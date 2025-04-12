@@ -1,13 +1,12 @@
 package com.example.chatlibmio.adapter
 
-import com.example.chatlibmio.model.Message
-import com.example.chatlibmio.R
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.chatlibmio.R
+import com.example.chatlibmio.model.Message
 
 class ChatAdapter(private val messages: List<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
