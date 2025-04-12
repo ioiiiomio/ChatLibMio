@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.chatlibmio"
-    compileSdk = 35
+    namespace = "com.example.demochatapp"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.chatlibmio"
-        minSdk = 26
-        targetSdk = 35
+        applicationId = "com.example.demochatapp"
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -59,9 +59,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,8 +66,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-//    okHttp
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
 }

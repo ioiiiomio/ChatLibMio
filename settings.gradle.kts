@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ChatLibMio"
 include(":app")
+include(":demochatapp")
