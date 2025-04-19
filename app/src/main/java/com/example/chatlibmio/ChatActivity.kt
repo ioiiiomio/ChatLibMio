@@ -6,66 +6,45 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.chatlibmio.adapter.MessageAdapter
 import com.example.chatlibmio.model.Message
-import com.example.chatlibmio.network.WebSocketManager
-import java.time.LocalDateTime
+import java.util.Date
 
-class ChatActivity : AppCompatActivity(), WebSocketManager.Listener {
+class ChatActivity : AppCompatActivity() {
 
-    private lateinit var adapter: ChatAdapter
-    private lateinit var recyclerView: RecyclerView
     private lateinit var messageInput: EditText
     private lateinit var sendButton: Button
-    private lateinit var webSocketManager: WebSocketManager
-    private val messages = mutableListOf<Message>()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: MessageAdapter
+    private val messages = mutableListOf<Message>() // Replace with your Message model
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        recyclerView = findViewById(R.id.recyclerView)
-        messageInput = findViewById(R.id.messageInput)
-        sendButton = findViewById(R.id.sendButton)
+        messageInput = findViewById(R.id.editMessage)
+        sendButton = findViewById(R.id.btnSend)
+        recyclerView = findViewById(R.id.recyclerChat)
 
-        adapter = ChatAdapter(messages)
+        adapter = MessageAdapter(messages) // Your custom adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        webSocketManager = WebSocketManager(this)
-        webSocketManager.connect()
-
         sendButton.setOnClickListener {
-            val msg = messageInput.text.toString()
-            if (msg.isNotBlank()) {
-                val message = Message(
-                    content = msg,
-                    dateTime = LocalDateTime.now(),
-                    isSentByUser = true
-                )
-                messages.add(message)
+            val messageText = messageInput.text?.toString()?.trim()
+
+            if (!messageText.isNullOrEmpty()) {
+                val newMessage = Message(
+                    text = messageText,
+                    sender = "You",
+                    timestamp = Date())
+
+                messages.add(newMessage)
                 adapter.notifyItemInserted(messages.size - 1)
-                webSocketManager.send(msg)
-                messageInput.text.clear()
+                recyclerView.scrollToPosition(messages.size - 1)
+                messageInput.text?.clear()
             }
         }
 
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        webSocketManager.close()
-    }
-
-    override fun onMessageReceived(message: String) {
-        runOnUiThread {
-            val msg = Message(
-                content = message,
-                dateTime = LocalDateTime.now(), // ⏰ Current date
-                isSentByUser = false
-            )
-            messages.add(msg)
-            adapter.notifyItemInserted(messages.size - 1)
-        }
-    }
-
 }

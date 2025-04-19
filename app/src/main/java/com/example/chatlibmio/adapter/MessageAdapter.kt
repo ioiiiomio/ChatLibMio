@@ -7,13 +7,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatlibmio.R
+import com.example.chatlibmio.model.Message
+import java.text.SimpleDateFormat
+import java.util.*
 
-class MessageAdapter(private val messages: MutableList<String>) :
+class MessageAdapter(private val messages: MutableList<Message>) :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageText: TextView = itemView.findViewById(R.id.messageText)
-        val profileImage: ImageView = itemView.findViewById(R.id.profileImage) // 👈 Add this
+        val profileImage: ImageView = itemView.findViewById(R.id.profileImage)
+        val nicknameText: TextView = itemView.findViewById(R.id.nicknameText)
+        val timestampText: TextView = itemView.findViewById(R.id.timestampText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -25,13 +30,17 @@ class MessageAdapter(private val messages: MutableList<String>) :
     override fun getItemCount(): Int = messages.size
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        holder.messageText.text = messages[position]
+        val message = messages[position]
 
-        // 👇 Explicitly set the image resource
-        holder.profileImage.setImageResource(R.drawable.ic_dummy_profile)
+        holder.messageText.text = message.text
+        holder.profileImage.setImageResource(message.profilePicResId)
+        holder.nicknameText.text = message.nickname
+
+        val formatter = SimpleDateFormat("HH:mm, MMM d", Locale.getDefault())
+        holder.timestampText.text = formatter.format(message.timestamp)
     }
 
-    fun addMessage(message: String) {
+    fun addMessage(message: Message) {
         messages.add(message)
         notifyItemInserted(messages.size - 1)
     }
