@@ -56,7 +56,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.example.chatlibmio"
             artifactId = "chatlibmio"
-            version = "1.1.1"
+            version = "1.2.1"
 
             afterEvaluate {
                 from(components["release"])
@@ -66,10 +66,10 @@ publishing {
 
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/ioiiiomio/chatlibmio")
+            url = uri("https://maven.pkg.github.com/ioiiiomio/chatlibmio/package")
             credentials {
-                username = System.getenv("GITHUB_USERNAME") ?: ""  // GitHub username
-                password = System.getenv("GITHUB_TOKEN") ?: ""    // GitHub token
+                username = System.getenv("GITHUB_USERNAME") ?: ""
+                password = System.getenv("GITHUB_TOKEN") ?: ""
             }
         }
         google()
