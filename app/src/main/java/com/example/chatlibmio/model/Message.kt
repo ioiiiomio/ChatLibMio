@@ -1,8 +1,8 @@
 package com.example.chatlibmio.model
-import java.time.LocalDateTime
 
 data class Message(
-    val content: String,
-    val dateTime: LocalDateTime,
-    val isSentByUser: Boolean
+    val text: String,
+    val timestamp: String,
+    val nickname: String,
+    val profilePicResId: Int // drawable resource ID
 )

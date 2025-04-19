@@ -6,7 +6,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chatlibmio.adapter.ChatAdapter
 import com.example.chatlibmio.model.Message
 import com.example.chatlibmio.network.WebSocketManager
 import java.time.LocalDateTime
